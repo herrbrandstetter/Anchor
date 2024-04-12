@@ -10,9 +10,9 @@ object StatusCommand : Command {
         val servers = event.jda.guilds.size
         val builder = EmbedBuilder().setTitle("Anchor status")
             .setDescription("Information about the bots current status:")
-            .addField("Requests", "35 requests remaining today (NYI)", false)
+            .addField("Requests", "NYI", false)
             .addField("Server count", "$servers ${if (servers == 1) "server" else "servers"}", false)
-            .addField("Uptime", "5 days (NYI)", false)
+            .addField("Uptime", "NYI", false)
             .setThumbnail("https://cdn-icons-png.flaticon.com/128/9437/9437983.png")
 
         event.replyEmbeds(builder.build()).setEphemeral(true)

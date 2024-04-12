@@ -9,14 +9,14 @@ import java.net.URLEncoder
 val apiKey = File("tokenApi.txt").readText()
 
 fun newSearchRequest(options: List<OptionMapping>): Pair<JSONArray, Int> {
-    val url = "https://gnews.io/api/v4/search?%s&apikey=%s".format(buildParams(options), apiKey)
+    val url = "https://gnews.io/api/v4/search?${buildParams(options)}&apikey=$apiKey"
     val response = get(url)
 
     return response.jsonObject.getJSONArray("articles") to response.statusCode
 }
 
 fun newHeadlinesRequest(options: List<OptionMapping>): Pair<JSONArray, Int> {
-    val url = "https://gnews.io/api/v4/top-headlines?%s&apikey=%s".format(buildParams(options), apiKey)
+    val url = "https://gnews.io/api/v4/top-headlines?${buildParams(options)}&apikey=$apiKey"
     val response = get(url)
 
     return response.jsonObject.getJSONArray("articles") to response.statusCode

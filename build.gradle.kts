@@ -8,7 +8,7 @@ plugins {
     kotlin("jvm") version "1.9.21"
 }
 
-application.mainClass.set("de.herrbrandstetter.anchor.Anchor")
+application.mainClass.set("de.herrbrandstetter.anchor.AnchorKt")
 group = "de.herrbrandstetter"
 version = "1.0"
 
@@ -20,8 +20,10 @@ repositories {
 
 dependencies {
     implementation("net.dv8tion:JDA:5.0.0-beta.19")
-//    implementation("com.github.jkcclemens:khttp:0.1.0")
     implementation("org.danilopianini:khttp:1.4.3")
+    implementation("org.mongodb:mongodb-driver-kotlin-sync:5.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     testImplementation(kotlin("test"))
 }
 
@@ -36,8 +38,6 @@ tasks.withType<ShadowJar> {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.isIncremental = true
-
-    //JDA supports Java 8 and above
     sourceCompatibility = "1.8"
 }
 

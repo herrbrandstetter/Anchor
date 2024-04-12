@@ -2,12 +2,10 @@ package de.herrbrandstetter.anchor.util
 
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.MessageEmbed
-import org.json.JSONArray
 import org.json.JSONObject
 import java.awt.Color
-import java.io.File
 
-fun newResponse(response: JSONArray, status: Int): MessageEmbed {
+fun newResponse(response: List<Any>, status: Int, page: Int): MessageEmbed {
     val builder = EmbedBuilder().setAuthor("Anchor").setColor(Color(223, 74, 68))
 
     with(builder) {
@@ -17,7 +15,7 @@ fun newResponse(response: JSONArray, status: Int): MessageEmbed {
             429 -> { setTitle("Please try again"); setDescription("Too many requests were made at the same time. Please make another request.") }
             500, 503 -> { setTitle("Server error"); setDescription("An internal error occurred with the API. Please try again later.") }
             else -> {
-                if (response.isEmpty) {
+                if (response.isEmpty()) {
                     setTitle("No results found")
                     setDescription("No articles were found based on your search criteria.")
                     setImage("https://s3.envato.com/files/273549171/fr20191015_0087.jpg")
@@ -25,7 +23,7 @@ fun newResponse(response: JSONArray, status: Int): MessageEmbed {
                 }
 
                 var image = ""
-                for ((i, entry) in (response.take(5)).withIndex()) {
+                for ((i, entry) in response.withIndex()) {
                     val article = JSONObject(entry.toString())
                     if (i == 0) {
                         image = article["image"].toString()
@@ -40,7 +38,7 @@ fun newResponse(response: JSONArray, status: Int): MessageEmbed {
                 }
 
                 setImage(image)
-                setTitle("Results (Page 1)")
+                setTitle("Results (Page $page)")
             }
         }
     }

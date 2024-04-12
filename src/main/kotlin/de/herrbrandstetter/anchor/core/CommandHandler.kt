@@ -1,7 +1,9 @@
 package de.herrbrandstetter.anchor.core
 
-import de.herrbrandstetter.anchor.core.ButtonInteraction.Companion.buttons
-import de.herrbrandstetter.anchor.core.Command.Companion.commands
+import de.herrbrandstetter.anchor.commands.AboutCommand
+import de.herrbrandstetter.anchor.commands.HeadlinesCommand
+import de.herrbrandstetter.anchor.commands.SearchCommand
+import de.herrbrandstetter.anchor.commands.StatusCommand
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.events.session.ReadyEvent
@@ -10,15 +12,25 @@ import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
 
-object CommandHandler : ListenerAdapter() {
+class CommandHandler : ListenerAdapter() {
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
-        val command = commands[event.name]!!
-        command.execute(event)
+        val command = when(event.name) {
+            "status" -> StatusCommand
+            "about" -> AboutCommand
+            "search" -> SearchCommand
+            "headlines" -> HeadlinesCommand
+            else -> null
+        }
+        command?.execute(event)
     }
 
     override fun onButtonInteraction(event: ButtonInteractionEvent) {
-        val command = buttons[event.componentId]!!
-        command.buttonInteraction(event)
+        val command = when(event.componentId) {
+            "guide", "about" -> AboutCommand
+            "next", "prev" -> SearchCommand
+            else -> null
+        }
+        command?.buttonInteraction(event)
     }
 
     override fun onReady(event: ReadyEvent) {

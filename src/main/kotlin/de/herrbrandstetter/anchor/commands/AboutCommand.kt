@@ -18,10 +18,9 @@ object AboutCommand : Command, ButtonInteraction {
     }
 
     override fun buttonInteraction(event: ButtonInteractionEvent) {
-        if (event.button.id == "guide") {
+        if (event.button.id == "guide")
             event.editMessageEmbeds(buildGuideEmbed()).setActionRow(aboutButton).queue()
-        } else {
+        else
             event.editMessageEmbeds(buildAboutEmbed()).setActionRow(guideButton).queue()
-        }
     }
 }
