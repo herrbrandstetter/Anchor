@@ -65,7 +65,7 @@ class CommandHandler : ListenerAdapter() {
                     .addOption(OptionType.STRING, "lang", "Specify the language that articles should be written in.")
                     .addOption(OptionType.STRING, "country", "Specify the country in which articles were published.")
                     .addOption(OptionType.STRING, "from", "Set the earliest possible publication date (for example: '2023-12-24-13:00:00).")
-                    .addOption(OptionType.STRING, "to", "Set the latest possible publication date (for example: '2023-12-24-13:00:00).")
+                    .addOption(OptionType.STRING, "to", "Set the latest possible publication date (for example: 2023-12-24-13:00:00).")
                     .addOption(OptionType.STRING, "search", "Set optional keyword(s) to search articles by.")
             ).queue()
         }

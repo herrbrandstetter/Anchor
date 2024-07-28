@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.components.buttons.Button
 import org.json.JSONArray
 
-object HeadlinesCommand : Command, ButtonInteraction {
+object  HeadlinesCommand : Command, ButtonInteraction {
     private val nextButton = Button.secondary("next", "Next page").withEmoji(Emoji.fromUnicode("U+27A1"))
     private val prevButton = Button.secondary("prev", "Previous page").withEmoji(Emoji.fromUnicode("U+2B05"))
 

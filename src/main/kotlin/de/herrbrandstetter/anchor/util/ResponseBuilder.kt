@@ -6,17 +6,19 @@ import org.json.JSONObject
 import java.awt.Color
 
 fun newResponse(response: List<Any>, status: Int, page: Int): MessageEmbed {
-    val builder = EmbedBuilder().setAuthor("Anchor").setColor(Color(223, 74, 68))
+    val red = Color(223, 74, 68)
+    val teal = Color(90, 189, 171)
+    val builder = EmbedBuilder().setAuthor("Anchor").setColor(red)
 
     with(builder) {
         when (status) {
-            400 -> { setTitle("Invalid request"); setDescription("Your request was invalid. Please try modifying your search options, like language code or date format.") }
-            403 -> { setTitle("Request limit reached"); setDescription("Daily request limit of 100 was reached. Please try again in X hours.") }
-            429 -> { setTitle("Please try again"); setDescription("Too many requests were made at the same time. Please make another request.") }
-            500, 503 -> { setTitle("Server error"); setDescription("An internal error occurred with the API. Please try again later.") }
+            400 -> { setTitle("\u274C Invalid request"); setDescription("Your request was invalid. Please try modifying your search options, like language code or date format.") }
+            403 -> { setTitle("\u274C Request limit reached"); setDescription("Daily request limit of 100 was reached. Please try again later.") }
+            429 -> { setTitle("\u274C Please try again"); setDescription("Too many requests were made at the same time. Please make another request.") }
+            500, 503 -> { setTitle("\u274C Server error"); setDescription("An internal error occurred with the API. Please try again later.") }
             else -> {
                 if (response.isEmpty()) {
-                    setTitle("No results found")
+                    setTitle("\u274C No results found")
                     setDescription("No articles were found based on your search criteria.")
                     setImage("https://s3.envato.com/files/273549171/fr20191015_0087.jpg")
                     return@with
@@ -38,7 +40,8 @@ fun newResponse(response: List<Any>, status: Int, page: Int): MessageEmbed {
                 }
 
                 setImage(image)
-                setTitle("Results (Page $page)")
+                setTitle("\uD83D\uDCF0 Results (Page $page)")
+                setColor(teal)
             }
         }
     }
